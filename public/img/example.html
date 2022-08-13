@@ -1,0 +1,111 @@
+<style>
+    #book {
+
+background-color: grey;
+border-color: grey;
+border-style: outset;
+border-width: 2px 5px 3px 2px;
+height: 361px;
+position: relative;
+width: 600px;
+z-index: 0;
+}
+
+.flippage {
+height: 361px;
+left: 300px;
+overflow: hidden;
+position: absolute;
+top: 0;
+width: 300px;
+cursor: pointer;
+}
+
+.flippage:first-child {
+cursor: default;
+}
+
+.fliphtml {
+display: block;
+border-color: #000000;
+border-style: solid;
+border-width: 0;
+color: #FFFFFF;
+height: 361px;
+left: 0;
+overflow: hidden;
+position: absolute;
+top: 0;
+width: 300px;
+}
+
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<div id="book">
+    <div id="flippage_1" class="flippage">
+        <img id="fliphtml_1" class="fliphtml" src="1.jpg" alt="">
+      </div>
+    <div id="flippage_2" class="flippage">
+      <img id="fliphtml_2" class="fliphtml" src="1.jpg" alt="">
+    </div>
+    <div id="flippage_3" class="flippage">
+        <img id="fliphtml_3" class="fliphtml" src="prueba.jpg" alt="">
+    </div>
+    <div id="flippage_4" class="flippage">
+      <span id="fliphtml_4" class="fliphtml" style="background-image:url(http://img684.imageshack.us/img684/5764/flip04g.jpg)"></span>
+    </div>
+    <div id="flippage_5" class="flippage">
+      <span id="fliphtml_5" class="fliphtml" style="background-image:url(http://img714.imageshack.us/img714/673/flip03.jpg)"></span>
+    </div>
+    <div id="flippage_6" class="flippage">
+      <span id="fliphtml_6" class="fliphtml" style="background-image:url(http://img222.imageshack.us/img222/168/flip02.jpg)"></span>
+    </div>
+    <div id="flippage_7" class="flippage">
+      <span id="fliphtml_7" class="fliphtml" style="background-image:url(http://img638.imageshack.us/img638/4933/flip01.jpg)"></span>
+    </div>
+    <div id="flippage_8" class="flippage">
+      <span id="fliphtml_8" class="fliphtml" style="background-color:#3f98bc"></span>
+    </div>
+  </div>
+  
+
+  <script>
+        $('.flippage').click(function(){
+        
+        $this = $(this);
+        
+        if ($(this).css('left') == '0px') {
+
+                $(this).animate({ width: '0px', left: '300px' }, 100, function(){
+                    $this.next().width('0px').animate({
+                    }, 150);
+                    $this.prev().animate({ width: '300px' }, 100);
+                    // replace left side with background
+                    $bg = $this.nextAll().eq(1).children('span').css('backgroundImage');
+                    $('#book').css('backgroundImage', $bg);
+                    
+                    $this.nextAll().eq(1).animate({
+                        left: '0px',
+                    }, 100, function() {
+                        $('#book').css('backgroundImage', 'none');
+                    });
+                });
+        }
+        else {
+            
+            if ($this.index() == 0) {
+                //if last page (technically first div) then do nothing
+            }
+            else {
+                $(this).animate({ width: '0px' }, 100, function(){
+                    $this.prev().width('1px').animate({
+                        left: '0px',
+                    }, 100);
+                    $this.next().animate({ width: '0px' }, 100);
+                });
+            }
+        }// end else
+    });
+
+
+  </script>
